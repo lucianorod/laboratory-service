@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: laboratory-service
+  profiles:
+    active: ${SPRING_PROFILE:local}
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+server:
+  servlet:
+    context-path: /laboratory-service
