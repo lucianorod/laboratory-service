@@ -1,14 +1,14 @@
 package com.laboratory.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
-@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -29,4 +29,7 @@ public class Exam {
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "exams")
     private Collection<Laboratory> laboratories;
+
+    @Column(name = "is_removed")
+    private boolean removed;
 }
