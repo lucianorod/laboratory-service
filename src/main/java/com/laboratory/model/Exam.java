@@ -1,14 +1,12 @@
 package com.laboratory.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter

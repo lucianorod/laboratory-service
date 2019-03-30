@@ -34,6 +34,7 @@ public class LaboratoryService {
 
     @Transactional
     public Laboratory save(LaboratoryDto laboratoryDto) {
+
         final Laboratory laboratory = modelMapper.map(laboratoryDto, Laboratory.class);
         log.info("M=save, saving laboratory={}", laboratory);
         return laboratoryRepository.save(laboratory);
