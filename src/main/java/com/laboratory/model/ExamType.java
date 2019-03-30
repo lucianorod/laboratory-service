@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 @NoArgsConstructor
 @Getter
@@ -19,7 +19,7 @@ public class ExamType {
     @GeneratedValue
     private Long id;
 
+    @NotEmpty
     @Column(name = "name")
-    @NotNull
     private String name;
 }

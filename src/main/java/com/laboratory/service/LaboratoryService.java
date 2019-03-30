@@ -8,6 +8,8 @@ import com.laboratory.repository.LaboratoryRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,20 +19,24 @@ import javax.transaction.Transactional;
 @AllArgsConstructor
 public class LaboratoryService {
 
-    final LaboratoryRepository laboratoryRepository;
+    private final LaboratoryRepository laboratoryRepository;
 
-    final ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    public Laboratory find(Long laboratoryId) {
+        log.info("M=find, finding laboratory with id {}", laboratoryId);
+        return laboratoryRepository.findById(laboratoryId).orElseThrow(NotFoundException::new);
+    }
+
+    public Page<Laboratory> find(Pageable pageable) {
+        return laboratoryRepository.findAll(pageable);
+    }
 
     @Transactional
     public Laboratory save(LaboratoryDto laboratoryDto) {
         final Laboratory laboratory = modelMapper.map(laboratoryDto, Laboratory.class);
         log.info("M=save, saving laboratory={}", laboratory);
         return laboratoryRepository.save(laboratory);
-    }
-
-    public Laboratory find(Long laboratoryId) {
-        log.info("M=find, finding laboratory with id {}", laboratoryId);
-        return laboratoryRepository.findById(laboratoryId).orElseThrow(NotFoundException::new);
     }
 
     public void delete(Long laboratoryId) {

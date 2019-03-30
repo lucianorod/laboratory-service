@@ -1,14 +1,16 @@
 package com.laboratory.model;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 
 @NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
@@ -19,8 +21,8 @@ public class Exam {
     @GeneratedValue
     private Long id;
 
+    @NotEmpty
     @Column(name = "name")
-    @NotNull
     private String name;
 
     @OneToOne(fetch = FetchType.EAGER)
