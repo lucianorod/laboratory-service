@@ -17,7 +17,7 @@ import javax.validation.constraints.NotEmpty;
 public class Address {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty

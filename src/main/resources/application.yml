@@ -5,6 +5,9 @@ spring:
     active: ${SPRING_PROFILE:local}
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
+  flyway:
+    enabled: true
+    locations: ["filesystem:src/main/resources/migrations", "classpath:/BOOT-INF/classes/migrations/"]
 server:
   servlet:
     context-path: /laboratory-service

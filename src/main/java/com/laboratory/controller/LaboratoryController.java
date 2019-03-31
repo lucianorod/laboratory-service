@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/laboratory")
+@RequestMapping(value = "/laboratories")
 public class LaboratoryController {
 
     private final LaboratoryService laboratoryService;

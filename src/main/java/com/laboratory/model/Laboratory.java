@@ -20,7 +20,7 @@ import java.util.Collection;
 public class Laboratory {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty

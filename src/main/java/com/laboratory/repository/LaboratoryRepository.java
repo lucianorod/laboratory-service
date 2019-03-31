@@ -8,5 +8,5 @@ import java.util.Collection;
 @Repository
 public interface LaboratoryRepository extends SoftDeleteRepository<Laboratory, Long> {
 
-    Collection<Laboratory> findByIdIn(Collection<Integer> ids);
+    Collection<Laboratory> findByIdIn(Collection<Long> ids);
 }

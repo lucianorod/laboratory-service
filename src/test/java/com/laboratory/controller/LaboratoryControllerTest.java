@@ -6,7 +6,6 @@ import com.laboratory.LaboratoryServiceApplicationTests;
 import com.laboratory.dto.LaboratoryDto;
 import com.laboratory.model.Laboratory;
 import com.laboratory.repository.LaboratoryRepository;
-import lombok.SneakyThrows;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +21,11 @@ public class LaboratoryControllerTest extends LaboratoryServiceApplicationTests 
     private LaboratoryRepository laboratoryRepository;
 
     @Test
-    @SneakyThrows
-    public void testPost() {
+    public void testPost() throws Exception {
 
         final String payload = objectMapper.writeValueAsString(Fixture.from(LaboratoryDto.class).gimme("VALID"));
 
-        mvc.perform(post("/laboratory")
+        mvc.perform(post("/laboratories")
                 .content(payload)
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isCreated())
@@ -41,12 +39,11 @@ public class LaboratoryControllerTest extends LaboratoryServiceApplicationTests 
     }
 
     @Test
-    @SneakyThrows
-    public void testGet() {
+    public void testGet() throws Exception {
 
         final Laboratory laboratory = laboratoryRepository.save(Fixture.from(Laboratory.class).gimme("VALID"));
 
-        mvc.perform(get("/laboratory/{laboratoryId}", laboratory.getId()))
+        mvc.perform(get("/laboratories/{laboratoryId}", laboratory.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -58,22 +55,20 @@ public class LaboratoryControllerTest extends LaboratoryServiceApplicationTests 
     }
 
     @Test
-    @SneakyThrows
-    public void testGetNotFound() {
+    public void testGetNotFound() throws Exception {
 
-        mvc.perform(get("/laboratory/{laboratoryId}", 123455))
+        mvc.perform(get("/laboratories/{laboratoryId}", 123455))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @SneakyThrows
-    public void testPut() {
+    public void testPut() throws Exception {
 
         final Laboratory laboratory = laboratoryRepository.save(Fixture.from(Laboratory.class).gimme("VALID"));
         final String payload = objectMapper.writeValueAsString(Fixture.from(LaboratoryDto.class)
                 .gimme("VALID-PUT"));
 
-        mvc.perform(put("/laboratory/{laboratoryId}", laboratory.getId())
+        mvc.perform(put("/laboratories/{laboratoryId}", laboratory.getId())
                 .content(payload)
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
@@ -87,18 +82,17 @@ public class LaboratoryControllerTest extends LaboratoryServiceApplicationTests 
     }
 
     @Test
-    @SneakyThrows
-    public void testDelete() {
+    public void testDelete() throws Exception {
 
         final Laboratory laboratory = laboratoryRepository.save(Fixture.from(Laboratory.class).gimme("VALID"));
 
-        mvc.perform(get("/laboratory/{laboratoryId}", laboratory.getId()))
+        mvc.perform(get("/laboratories/{laboratoryId}", laboratory.getId()))
                 .andExpect(status().isOk());
 
-        mvc.perform(delete("/laboratory/{laboratoryId}", laboratory.getId()))
+        mvc.perform(delete("/laboratories/{laboratoryId}", laboratory.getId()))
                 .andExpect(status().isNoContent());
 
-        mvc.perform(get("/laboratory/{laboratoryId}", laboratory.getId()))
+        mvc.perform(get("/laboratories/{laboratoryId}", laboratory.getId()))
                 .andExpect(status().isNotFound());
     }
 }

@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -32,7 +30,6 @@ public class LaboratoryService {
         return laboratoryRepository.findAll(pageable);
     }
 
-    @Transactional
     public Laboratory save(LaboratoryDto laboratoryDto) {
 
         final Laboratory laboratory = modelMapper.map(laboratoryDto, Laboratory.class);

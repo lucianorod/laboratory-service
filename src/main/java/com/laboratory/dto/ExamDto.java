@@ -15,5 +15,5 @@ public class ExamDto {
 
     private String examType;
 
-    private Set<Integer> laboratories;
+    private Set<Long> laboratories;
 }
