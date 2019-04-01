@@ -20,6 +20,6 @@ public class ExamType {
     private Long id;
 
     @NotEmpty
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 }

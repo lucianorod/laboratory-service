@@ -2,12 +2,13 @@ package com.laboratory.controller;
 
 import br.com.six2six.fixturefactory.Fixture;
 import com.laboratory.LaboratoryServiceApplicationTests;
-import com.laboratory.dto.ExamDto;
+import com.laboratory.dto.ExamInDto;
 import com.laboratory.model.Exam;
 import com.laboratory.model.ExamType;
 import com.laboratory.repository.ExamRepository;
 import com.laboratory.repository.ExamTypeRepository;
 import org.hamcrest.Matchers;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,16 @@ public class ExamControllerTest extends LaboratoryServiceApplicationTests {
         examTypeRepository.save(ExamType.builder().name("ANALISE CLINICA").build());
     }
 
+    @After
+    public void after() {
+        examRepository.deleteAll();
+        examTypeRepository.deleteAll();
+    }
+
     @Test
     public void testPost() throws Exception {
 
-        final String payload = objectMapper.writeValueAsString(Fixture.from(ExamDto.class).gimme("VALID"));
+        final String payload = objectMapper.writeValueAsString(Fixture.from(ExamInDto.class).gimme("VALID"));
 
         mvc.perform(post("/exams")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -42,7 +49,7 @@ public class ExamControllerTest extends LaboratoryServiceApplicationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.name", Matchers.is("ULTRASSONOGRAFIA")))
-                .andExpect(jsonPath("$.examType.name", Matchers.is("IMAGEM")));
+                .andExpect(jsonPath("$.examType", Matchers.is("IMAGEM")));
 
     }
 
@@ -66,7 +73,7 @@ public class ExamControllerTest extends LaboratoryServiceApplicationTests {
         final ExamType examType = examTypeRepository.findByName("IMAGEM").get();
         final Exam exam = examRepository.save(Exam.builder().name("ULTRASSONOGRAFIA").examType(examType).build());
 
-        final String payload = objectMapper.writeValueAsString(Fixture.from(ExamDto.class).gimme("VALID-PUT"));
+        final String payload = objectMapper.writeValueAsString(Fixture.from(ExamInDto.class).gimme("VALID-PUT"));
 
         mvc.perform(put("/exams/{examId}", exam.getId())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -75,6 +82,6 @@ public class ExamControllerTest extends LaboratoryServiceApplicationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.name", Matchers.is("ULTRASSONOGRAFIA")))
-                .andExpect(jsonPath("$.examType.name", Matchers.is("ANALISE CLINICA")));
+                .andExpect(jsonPath("$.examType", Matchers.is("ANALISE CLINICA")));
     }
 }

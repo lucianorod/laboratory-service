@@ -9,7 +9,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ExamDto {
+public class ExamInDto {
 
     private String name;
 

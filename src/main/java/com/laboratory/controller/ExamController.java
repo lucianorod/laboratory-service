@@ -1,6 +1,7 @@
 package com.laboratory.controller;
 
-import com.laboratory.dto.ExamDto;
+import com.laboratory.dto.ExamInDto;
+import com.laboratory.dto.ExamOutDto;
 import com.laboratory.model.Exam;
 import com.laboratory.service.ExamService;
 import lombok.AllArgsConstructor;
@@ -19,25 +20,25 @@ public class ExamController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Exam post(@RequestBody ExamDto exam) {
+    public ExamOutDto post(@RequestBody ExamInDto exam) {
         return examService.save(exam);
     }
 
     @GetMapping(value = "/{examId}")
     @ResponseStatus(HttpStatus.OK)
     public Exam get(@PathVariable Long examId) {
-        return examService.get(examId);
+        return examService.find(examId);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Page<Exam> get(Pageable pageable) {
-        return examService.get(pageable);
+        return examService.find(pageable);
     }
 
     @PutMapping(value = "/{examId}")
     @ResponseStatus(HttpStatus.OK)
-    public Exam put(@PathVariable Long examId, @RequestBody ExamDto exam) {
+    public ExamOutDto put(@PathVariable Long examId, @RequestBody ExamInDto exam) {
         return examService.update(examId, exam);
     }
 

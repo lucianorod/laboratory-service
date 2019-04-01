@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
