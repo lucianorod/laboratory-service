@@ -3,7 +3,6 @@ package com.laboratory.controller;
 
 import br.com.six2six.fixturefactory.Fixture;
 import com.laboratory.LaboratoryServiceApplicationTests;
-import com.laboratory.dto.LaboratoryDto;
 import com.laboratory.model.Laboratory;
 import com.laboratory.repository.LaboratoryRepository;
 import org.hamcrest.Matchers;
@@ -23,7 +22,7 @@ public class LaboratoryControllerTest extends LaboratoryServiceApplicationTests 
     @Test
     public void testPost() throws Exception {
 
-        final String payload = objectMapper.writeValueAsString(Fixture.from(LaboratoryDto.class).gimme("VALID"));
+        final String payload = objectMapper.writeValueAsString(Fixture.from(Laboratory.class).gimme("VALID"));
 
         mvc.perform(post("/laboratories")
                 .content(payload)
@@ -65,7 +64,7 @@ public class LaboratoryControllerTest extends LaboratoryServiceApplicationTests 
     public void testPut() throws Exception {
 
         final Laboratory laboratory = laboratoryRepository.save(Fixture.from(Laboratory.class).gimme("VALID"));
-        final String payload = objectMapper.writeValueAsString(Fixture.from(LaboratoryDto.class)
+        final String payload = objectMapper.writeValueAsString(Fixture.from(Laboratory.class)
                 .gimme("VALID-PUT"));
 
         mvc.perform(put("/laboratories/{laboratoryId}", laboratory.getId())

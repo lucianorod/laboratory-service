@@ -1,6 +1,5 @@
 package com.laboratory.controller;
 
-import com.laboratory.dto.LaboratoryDto;
 import com.laboratory.model.Laboratory;
 import com.laboratory.service.LaboratoryService;
 import lombok.AllArgsConstructor;
@@ -9,12 +8,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+import java.util.Set;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/laboratories")
 public class LaboratoryController {
 
     private final LaboratoryService laboratoryService;
+
+    @GetMapping(value = "/exams")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<Laboratory> getByExam(@RequestParam(value = "exam") String exam) {
+        return laboratoryService.findByExam(exam);
+    }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -30,14 +38,20 @@ public class LaboratoryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Laboratory post(@RequestBody LaboratoryDto laboratoryDto) {
-        return laboratoryService.save(laboratoryDto);
+    public Laboratory post(@RequestBody Laboratory laboratory) {
+        return laboratoryService.save(laboratory);
+    }
+
+    @PostMapping(value = "/bulk")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Collection<Laboratory> postBulk(@RequestBody Set<Laboratory> laboratories) {
+        return laboratoryService.saveBulk(laboratories);
     }
 
     @PutMapping(value = "/{laboratoryId}")
     @ResponseStatus(HttpStatus.OK)
-    public Laboratory put(@PathVariable Long laboratoryId, @RequestBody LaboratoryDto laboratoryDto) {
-        return laboratoryService.update(laboratoryId, laboratoryDto);
+    public Laboratory put(@PathVariable Long laboratoryId, @RequestBody Laboratory laboratory) {
+        return laboratoryService.update(laboratoryId, laboratory);
     }
 
     @DeleteMapping(value = "/{laboratoryId}")

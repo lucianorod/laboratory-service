@@ -1,16 +1,17 @@
 package com.laboratory.service;
 
-import com.laboratory.dto.LaboratoryDto;
 import com.laboratory.exception.BadRequestException;
 import com.laboratory.exception.NotFoundException;
 import com.laboratory.model.Laboratory;
 import com.laboratory.repository.LaboratoryRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -19,7 +20,9 @@ public class LaboratoryService {
 
     private final LaboratoryRepository laboratoryRepository;
 
-    private final ModelMapper modelMapper;
+    public Collection<Laboratory> findByExam(String exam) {
+        return laboratoryRepository.findByExam(exam);
+    }
 
     public Laboratory find(Long laboratoryId) {
         log.info("M=find, finding laboratory with id {}", laboratoryId);
@@ -30,11 +33,13 @@ public class LaboratoryService {
         return laboratoryRepository.findAll(pageable);
     }
 
-    public Laboratory save(LaboratoryDto laboratoryDto) {
-
-        final Laboratory laboratory = modelMapper.map(laboratoryDto, Laboratory.class);
+    public Laboratory save(Laboratory laboratory) {
         log.info("M=save, saving laboratory={}", laboratory);
         return laboratoryRepository.save(laboratory);
+    }
+
+    public Collection<Laboratory> saveBulk(Set<Laboratory> laboratories) {
+        return (Collection<Laboratory>) laboratoryRepository.saveAll(laboratories);
     }
 
     public void delete(Long laboratoryId) {
@@ -42,14 +47,13 @@ public class LaboratoryService {
         laboratoryRepository.deleteById(laboratoryId);
     }
 
-    public Laboratory update(Long laboratoryId, LaboratoryDto laboratoryDto) {
-        final Laboratory laboratory = laboratoryRepository.findById(laboratoryId)
+    public Laboratory update(Long laboratoryId, Laboratory laboratory) {
+        final Laboratory lab = laboratoryRepository.findById(laboratoryId)
                 .orElseThrow(BadRequestException::new);
 
-        final Laboratory updatedLab = modelMapper.map(laboratoryDto, Laboratory.class);
-        updatedLab.setId(laboratory.getId());
+        laboratory.setId(lab.getId());
 
-        log.info("M=delete, updating laboratory {}", updatedLab);
-        return laboratoryRepository.save(updatedLab);
+        log.info("M=delete, updating laboratory {}", laboratory);
+        return laboratoryRepository.save(laboratory);
     }
 }

@@ -15,6 +15,10 @@ public class LaboratoryTemplates implements TemplateLoader {
             add("name", "Flour Laboratory");
             add("address", one(Address.class, "VALID"));
         }});
-    }
 
+        Fixture.of(Laboratory.class).addTemplate("VALID-PUT", new Rule() {{
+            add("name", "Luciano Laboratory");
+            add("address", one(Address.class, "VALID"));
+        }});
+    }
 }

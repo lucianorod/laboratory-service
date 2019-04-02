@@ -17,9 +17,6 @@ public class ModelMapperConfig {
 
         TypeMap<Exam, ExamDto> typeMap = modelMapper.createTypeMap(Exam.class, ExamDto.class);
         typeMap.addMappings(mapper -> mapper.map(src -> src.getExamType().getName(), ExamDto::setExamType));
-//        typeMap.addMappings(mapper -> mapper.map(src -> src.getLaboratoryExams().stream()
-//                .map(LaboratoryExamRepository::getLaboratory).collect(Collectors.toList()), ExamDto::setLaboratories
-//        ));
 
         return modelMapper;
     }

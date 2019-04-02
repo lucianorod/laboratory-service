@@ -37,10 +37,13 @@ CREATE TABLE `laboratory` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `laboratory_exam` (
-  `laboratory_id` bigint(20) NOT NULL,
-  `exam_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`laboratory_id`,`exam_id`),
-  KEY `FK80xshp7dn2rtyionkgtcqanpr` (`exam_id`),
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `is_removed` bit(1) DEFAULT NULL,
+  `exam_id` bigint(20) DEFAULT NULL,
+  `laboratory_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_1smsu5hsec8r68g96msqoagtr` (`exam_id`),
+  UNIQUE KEY `UK_lgbignrgxo5e5ne264wbcf0o9` (`laboratory_id`),
   CONSTRAINT `FK80xshp7dn2rtyionkgtcqanpr` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`),
   CONSTRAINT `FKmmoetm4vxisfay1il7ubsgqxm` FOREIGN KEY (`laboratory_id`) REFERENCES `laboratory` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

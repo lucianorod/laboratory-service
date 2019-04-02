@@ -4,11 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class ExamDto {
 
     private Long id;
@@ -17,5 +15,4 @@ public class ExamDto {
 
     private String examType;
 
-    private Set<LaboratoryDto> laboratories;
 }

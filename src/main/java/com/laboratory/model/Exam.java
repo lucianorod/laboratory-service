@@ -1,5 +1,6 @@
 package com.laboratory.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class Exam {
     @JoinColumn(name = "exam_type_id")
     private ExamType examType;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
     private Collection<LaboratoryExam> laboratoryExams = new HashSet<>();
 
