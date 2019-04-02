@@ -79,7 +79,7 @@ public class LaboratoryController {
         laboratoryService.delete(laboratoryId);
     }
 
-    @DeleteMapping(value = "/bulk")
+    @PostMapping(value = "/bulk")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBulk(@RequestParam("ids") Set<Long> ids) {
         laboratoryService.deleteBulk(ids);
