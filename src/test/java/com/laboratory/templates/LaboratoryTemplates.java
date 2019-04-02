@@ -12,12 +12,17 @@ public class LaboratoryTemplates implements TemplateLoader {
     public void load() {
 
         Fixture.of(Laboratory.class).addTemplate("VALID", new Rule() {{
-            add("name", "Flour Laboratory");
+            add("name", "Delboni");
+            add("address", one(Address.class, "VALID"));
+        }});
+
+        Fixture.of(Laboratory.class).addTemplate("VALID-2", new Rule() {{
+            add("name", "Lavoisier");
             add("address", one(Address.class, "VALID"));
         }});
 
         Fixture.of(Laboratory.class).addTemplate("VALID-PUT", new Rule() {{
-            add("name", "Luciano Laboratory");
+            add("name", "Delboni-PUT");
             add("address", one(Address.class, "VALID"));
         }});
     }

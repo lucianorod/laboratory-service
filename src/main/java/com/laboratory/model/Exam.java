@@ -5,8 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
-import java.util.HashSet;
 
 @ToString
 @AllArgsConstructor
@@ -26,13 +26,14 @@ public class Exam {
     @Column(name = "name", unique = true)
     private String name;
 
+    @NotNull
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "exam_type_id")
     private ExamType examType;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
-    private Collection<LaboratoryExam> laboratoryExams = new HashSet<>();
+    @OneToMany(mappedBy = "exam", fetch = FetchType.EAGER)
+    private Collection<LaboratoryExam> laboratoryExams;
 
     @Column(name = "is_removed")
     private boolean removed;

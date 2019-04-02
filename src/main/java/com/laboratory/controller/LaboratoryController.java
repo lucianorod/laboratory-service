@@ -4,7 +4,7 @@ import com.laboratory.model.Laboratory;
 import com.laboratory.service.LaboratoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,10 +24,23 @@ public class LaboratoryController {
         return laboratoryService.findByExam(exam);
     }
 
+    @PostMapping(value = "/{laboratoryId}/exams/{examId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addLaboratory(@PathVariable Long laboratoryId, @PathVariable Long examId) {
+        laboratoryService.addExam(laboratoryId, examId);
+    }
+
+    @DeleteMapping(value = "/{laboratoryId}/exams/{examId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteLaboratory(@PathVariable Long laboratoryId, @PathVariable Long examId) {
+        laboratoryService.deleteExam(laboratoryId, examId);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<Laboratory> get(Pageable pageable) {
-        return laboratoryService.find(pageable);
+    public Page<Laboratory> get(@RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
+                                @RequestParam(value = "size", defaultValue = "30", required = false) Integer size) {
+        return laboratoryService.find(PageRequest.of(page, size));
     }
 
     @GetMapping(value = "/{laboratoryId}")
@@ -54,9 +67,22 @@ public class LaboratoryController {
         return laboratoryService.update(laboratoryId, laboratory);
     }
 
+    @PutMapping(value = "/bulk")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<Laboratory> putBulk(@RequestBody Set<Laboratory> laboratories) {
+        return laboratoryService.updateBulk(laboratories);
+    }
+
     @DeleteMapping(value = "/{laboratoryId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long laboratoryId) {
         laboratoryService.delete(laboratoryId);
     }
+
+    @DeleteMapping(value = "/bulk")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBulk(@RequestParam("ids") Set<Long> ids) {
+        laboratoryService.deleteBulk(ids);
+    }
+
 }

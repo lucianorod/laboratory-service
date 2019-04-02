@@ -4,9 +4,12 @@ import com.laboratory.dto.ExamDto;
 import com.laboratory.service.ExamService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
+import java.util.Set;
 
 
 @RestController
@@ -22,6 +25,13 @@ public class ExamController {
         return examService.save(exam);
     }
 
+    @PostMapping(value = "/bulk")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Collection<ExamDto> postBulk(@RequestBody Set<ExamDto> exams) {
+        return examService.saveBulk(exams);
+    }
+
+
     @GetMapping(value = "/{examId}")
     @ResponseStatus(HttpStatus.OK)
     public ExamDto get(@PathVariable Long examId) {
@@ -30,8 +40,9 @@ public class ExamController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<ExamDto> get(Pageable pageable) {
-        return examService.find(pageable);
+    public Page<ExamDto> get(@RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
+                             @RequestParam(value = "size", defaultValue = "30", required = false) Integer size) {
+        return examService.find(PageRequest.of(page, size));
     }
 
     @PutMapping(value = "/{examId}")
@@ -40,21 +51,21 @@ public class ExamController {
         return examService.update(examId, exam);
     }
 
+    @PutMapping(value = "/bulk")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<ExamDto> putBulk(@RequestBody Set<ExamDto> exams) {
+        return examService.updateBulk(exams);
+    }
+
     @DeleteMapping(value = "/{examId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long examId) {
         examService.delete(examId);
     }
 
-    @PostMapping(value = "/{examId}/laboratories/{laboratoryId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ExamDto addLaboratory(@PathVariable Long laboratoryId, @PathVariable Long examId) {
-        return examService.addLaboratory(laboratoryId, examId);
-    }
-
-    @DeleteMapping(value = "/{examId}/laboratories/{laboratoryId}")
+    @DeleteMapping(value = "/bulk")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteLaboratory(@PathVariable Long laboratoryId, @PathVariable Long examId) {
-        examService.deleteLaboratory(laboratoryId, examId);
+    public void deleteBulk(@RequestParam("ids") Set<Long> ids) {
+        examService.deleteBulk(ids);
     }
 }

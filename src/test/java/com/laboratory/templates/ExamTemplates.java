@@ -3,24 +3,19 @@ package com.laboratory.templates;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
-import com.laboratory.dto.ExamDto;
+import com.laboratory.model.Exam;
 
-public class ExamDtoTemplates implements TemplateLoader {
+public class ExamTemplates implements TemplateLoader {
 
     @Override
     public void load() {
 
-        Fixture.of(ExamDto.class).addTemplate("VALID", new Rule() {{
+        Fixture.of(Exam.class).addTemplate("VALID", new Rule() {{
             add("name", "ULTRASSONOGRAFIA");
             add("examType", "IMAGEM");
         }});
 
-        Fixture.of(ExamDto.class).addTemplate("VALID-PUT", new Rule() {{
-            add("name", "ULTRASSONOGRAFIA-PUT");
-            add("examType", "IMAGEM");
-        }});
-
-        Fixture.of(ExamDto.class).addTemplate("VALID-2", new Rule() {{
+        Fixture.of(Exam.class).addTemplate("VALID-2", new Rule() {{
             add("name", "MAMOGRAFIA");
             add("examType", "IMAGEM");
         }});
