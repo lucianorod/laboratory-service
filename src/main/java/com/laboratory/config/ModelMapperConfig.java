@@ -1,6 +1,6 @@
 package com.laboratory.config;
 
-import com.laboratory.dto.ExamOutDto;
+import com.laboratory.dto.ExamDto;
 import com.laboratory.model.Exam;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
@@ -15,8 +15,11 @@ public class ModelMapperConfig {
 
         final ModelMapper modelMapper = new ModelMapper();
 
-        TypeMap<Exam, ExamOutDto> typeMap = modelMapper.createTypeMap(Exam.class, ExamOutDto.class);
-        typeMap.addMappings(mapper -> mapper.map(src -> src.getExamType().getName(), ExamOutDto::setExamType));
+        TypeMap<Exam, ExamDto> typeMap = modelMapper.createTypeMap(Exam.class, ExamDto.class);
+        typeMap.addMappings(mapper -> mapper.map(src -> src.getExamType().getName(), ExamDto::setExamType));
+//        typeMap.addMappings(mapper -> mapper.map(src -> src.getLaboratoryExams().stream()
+//                .map(LaboratoryExamRepository::getLaboratory).collect(Collectors.toList()), ExamDto::setLaboratories
+//        ));
 
         return modelMapper;
     }

@@ -6,7 +6,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
   flyway:
-    enabled: true
+    enabled: false
     locations: ["filesystem:src/main/resources/migrations", "classpath:/BOOT-INF/classes/migrations/"]
 server:
   servlet:

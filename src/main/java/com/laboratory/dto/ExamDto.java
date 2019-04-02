@@ -9,11 +9,13 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ExamInDto {
+public class ExamDto {
+
+    private Long id;
 
     private String name;
 
     private String examType;
 
-    private Set<Long> laboratories;
+    private Set<LaboratoryDto> laboratories;
 }

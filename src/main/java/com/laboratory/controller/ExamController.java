@@ -1,8 +1,6 @@
 package com.laboratory.controller;
 
-import com.laboratory.dto.ExamInDto;
-import com.laboratory.dto.ExamOutDto;
-import com.laboratory.model.Exam;
+import com.laboratory.dto.ExamDto;
 import com.laboratory.service.ExamService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,25 +18,25 @@ public class ExamController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ExamOutDto post(@RequestBody ExamInDto exam) {
+    public ExamDto post(@RequestBody ExamDto exam) {
         return examService.save(exam);
     }
 
     @GetMapping(value = "/{examId}")
     @ResponseStatus(HttpStatus.OK)
-    public Exam get(@PathVariable Long examId) {
+    public ExamDto get(@PathVariable Long examId) {
         return examService.find(examId);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<Exam> get(Pageable pageable) {
+    public Page<ExamDto> get(Pageable pageable) {
         return examService.find(pageable);
     }
 
     @PutMapping(value = "/{examId}")
     @ResponseStatus(HttpStatus.OK)
-    public ExamOutDto put(@PathVariable Long examId, @RequestBody ExamInDto exam) {
+    public ExamDto put(@PathVariable Long examId, @RequestBody ExamDto exam) {
         return examService.update(examId, exam);
     }
 
@@ -46,5 +44,17 @@ public class ExamController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long examId) {
         examService.delete(examId);
+    }
+
+    @PostMapping(value = "/{examId}/laboratories/{laboratoryId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ExamDto addLaboratory(@PathVariable Long laboratoryId, @PathVariable Long examId) {
+        return examService.addLaboratory(laboratoryId, examId);
+    }
+
+    @DeleteMapping(value = "/{examId}/laboratories/{laboratoryId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteLaboratory(@PathVariable Long laboratoryId, @PathVariable Long examId) {
+        examService.deleteLaboratory(laboratoryId, examId);
     }
 }

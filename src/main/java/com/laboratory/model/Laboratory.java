@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.HashSet;
 
 @ToString
 @NoArgsConstructor
@@ -32,11 +33,8 @@ public class Laboratory {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "laboratory_exam", joinColumns = {@JoinColumn(name = "laboratory_id")},
-            inverseJoinColumns = {@JoinColumn(name = "exam_id")})
-    private Collection<Exam> exams;
+    @OneToMany(mappedBy = "laboratory", cascade = CascadeType.ALL)
+    private Collection<LaboratoryExam> laboratoryExams = new HashSet<>();
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "is_removed")
