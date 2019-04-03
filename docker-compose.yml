@@ -11,16 +11,16 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=laboratory
-  # laboratory:
-  #   image: laboratory
-  #   environment:
-  #     - SPRING_PROFILE=local
-  #   depends_on:
-  #     - db
-  #   command: java -jar app.jar -Xms256m -Xmx256m
-  #   ports:
-  #     - 8080:8080
-  #   deploy:
-  #     resources:
-  #       limits:
-  #         memory: 1024M
+  laboratory:
+    image: laboratory
+    environment:
+      - SPRING_PROFILE=local
+    depends_on:
+      - db
+    command: java -jar app.jar -Xms256m -Xmx256m
+    ports:
+      - 8080:8080
+    deploy:
+      resources:
+        limits:
+          memory: 1024M

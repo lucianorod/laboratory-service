@@ -2,6 +2,8 @@
 
 API responsável pela manutenção de laboratórios e exames
 
+* Documentação: http://localhost:8080/laboratory-service/swagger-ui.html
+
 Frameworks/libs utilizadas:
 
 - Spring boot
@@ -83,6 +85,12 @@ curl -X DELETE \
   http://localhost:8080/laboratory-service/laboratories/1 
 ```
 
+- Busca paginada de laboratórios:
+```
+curl -X GET \
+  'http://localhost:8080/laboratory-service/laboratories?page=0&size=10'
+```
+
 # CRUD: Exame
 
 - Criação de um novo exame:
@@ -102,6 +110,7 @@ curl -X POST \
 curl -X GET \
   http://localhost:8080/laboratory-service/exams/1
 ```
+
 - Atualização de um exame existente:
 ```
 curl -X PUT \
@@ -117,6 +126,12 @@ curl -X PUT \
 ```
 curl -X DELETE \
   http://localhost:8080/laboratory-service/exams/1
+```
+
+- Busca paginada de exames:
+```
+curl -X GET \
+  'http://localhost:8080/laboratory-service/exams?page=0&size=10'
 ```
 
 # Operações de associação
