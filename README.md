@@ -32,8 +32,7 @@ Essa decisão foi tomada visando uma melhor organização da API, onde operaçõ
 único retorno e operações em lote sempre terão uma lista como retorno.
 
 - A entidade que representa a chave composta do relacionamento de laboratórios com exames,
-foi mapeada com um ID específico para diminuir a complexidade, caso surjam novas atributos
-para essa entidade.
+foi mapeada com um ID específico para diminuir a complexidade caso surjam novos atributos.
 
 - Um exame não pode estar associado mais de uma vez a um mesmo laboratório.
 

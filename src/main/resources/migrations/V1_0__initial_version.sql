@@ -42,8 +42,8 @@ CREATE TABLE `laboratory_exam` (
   `exam_id` bigint(20) DEFAULT NULL,
   `laboratory_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_1smsu5hsec8r68g96msqoagtr` (`exam_id`),
-  UNIQUE KEY `UK_lgbignrgxo5e5ne264wbcf0o9` (`laboratory_id`),
+  UNIQUE KEY `UKl0i9g2tqui5no63cks0o05hwg` (`laboratory_id`,`exam_id`),
+  KEY `FK80xshp7dn2rtyionkgtcqanpr` (`exam_id`),
   CONSTRAINT `FK80xshp7dn2rtyionkgtcqanpr` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`),
   CONSTRAINT `FKmmoetm4vxisfay1il7ubsgqxm` FOREIGN KEY (`laboratory_id`) REFERENCES `laboratory` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

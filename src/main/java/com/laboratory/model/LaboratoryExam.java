@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Builder
 @Entity
-@Table(name = "laboratory_exam")
+@Table(name = "laboratory_exam", uniqueConstraints = {@UniqueConstraint(columnNames = {"laboratory_id", "exam_id"})})
 public class LaboratoryExam {
 
     @Id
@@ -20,11 +20,11 @@ public class LaboratoryExam {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "laboratory_id", unique = true)
+    @JoinColumn(name = "laboratory_id")
     private Laboratory laboratory;
 
     @ManyToOne
-    @JoinColumn(name = "exam_id", unique = true)
+    @JoinColumn(name = "exam_id")
     private Exam exam;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

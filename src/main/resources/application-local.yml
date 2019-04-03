@@ -7,7 +7,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
-      jdbc-url: jdbc:mysql://db:3306/laboratory
+      jdbc-url: jdbc:mysql://localhost:3306/laboratory
       username: root
       password: root
 server:
