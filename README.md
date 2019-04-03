@@ -22,9 +22,8 @@ Frameworks/libs utilizadas:
 2) IMAGEM
 
 - Os tipos de exames foram criados como String e estão salvos no banco de dados, visando uma maior flexibilidade.
-Para adicionar um novo tipo de exame, bastaria adicionar diretamente no banco de dados (má prática) ou através 
-de um CRUD específico para esta tarefa.<br>
-Isso permite que sejam adicionados novos tipos de exames de acordo com a demanda e sem a necessidade
+Para criar um novo tipo de exame, bastaria adicionar diretamente no banco de dados (má prática) ou através 
+de um CRUD específico para esta tarefa. Isso permite que sejam adicionados novos tipos de exames de acordo com a demanda e sem a necessidade
 de um deploy para cada novo tipo, situação que aconteceria caso os tipos fossem mapeados como um ENUM.
 
 - Não é permitido cadastrar um novo exame com o mesmo nome.
