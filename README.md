@@ -204,7 +204,7 @@ curl -X DELETE \
   'http://localhost:8080/laboratory-service/laboratories/bulk?ids=8,11' \
 ```
 
-## Operações em lote: Exames
+# Operações em lote: Exames
 
 - Criação em lote de exames:
 
