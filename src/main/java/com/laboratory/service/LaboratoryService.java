@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,16 @@ public class LaboratoryService {
         final Exam exam = examRepository.findById(examId)
                 .orElseThrow(() -> new BadRequestException("exam doesn't exists"));
 
-        laboratoryExamRepository.save(LaboratoryExam.builder().laboratory(laboratory).exam(exam).build());
+        final Optional<LaboratoryExam> laboratoryExamOpt = laboratoryExamRepository
+                .findByLaboratoryIdAndExamId(laboratory.getId(), exam.getId());
+
+        if (laboratoryExamOpt.isPresent()) {
+            final LaboratoryExam laboratoryExam = laboratoryExamOpt.get();
+            laboratoryExam.setRemoved(false);
+            laboratoryExamRepository.save(laboratoryExam);
+        } else {
+            laboratoryExamRepository.save(LaboratoryExam.builder().laboratory(laboratory).exam(exam).build());
+        }
     }
 
     @Transactional

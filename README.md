@@ -1,4 +1,4 @@
-#Laboratory-service
+# laboratory-service
 
 API responsável pela manutenção de laboratórios e exames
 
@@ -14,7 +14,7 @@ Frameworks/libs utilizadas:
 
 # Definições de projeto
 
-#### Tipos de exames
+- Tipos de exames
 
 1) ANÁLISE CLINICA
 2) IMAGEM
@@ -31,9 +31,15 @@ de um deploy para cada novo tipo, situação que aconteceria caso os tipos fosse
 Essa decisão foi tomada visando uma melhor organização da API, onde operações únicas sempre terão um
 único retorno e operações em lote sempre terão uma lista como retorno.
 
+- A entidade que representa a chave composta do relacionamento de laboratórios com exames,
+foi mapeada com um ID específico para diminuir a complexidade, caso surjam novas atributos
+para essa entidade.
+
+- Um exame não pode estar associado mais de uma vez a um mesmo laboratório.
+
 # CRUD: Laboratório
 
-#### Criação de um novo laboratório:
+- Criação de um novo laboratório:
 
 ```
 curl -X POST \
@@ -50,13 +56,13 @@ curl -X POST \
 }'
 ```
 
-### Obter um laboratório existente:
+- Obter um laboratório existente:
 ```
 curl -X GET \
   http://localhost:8080/laboratory-service/laboratories/1
 ```
 
-#### Atualização de um laboratório existente:
+- Atualização de um laboratório existente:
 ```
 curl -X PUT \
   http://localhost:8080/laboratory-service/laboratories/1 \
@@ -72,7 +78,7 @@ curl -X PUT \
 	}
 }'
 ```
-#### Remover um laboratório existante:
+- Remover um laboratório existante:
 ```
 curl -X DELETE \
   http://localhost:8080/laboratory-service/laboratories/1 
@@ -80,7 +86,7 @@ curl -X DELETE \
 
 # CRUD: Exame
 
-#### Criação de um novo exame
+- Criação de um novo exame:
 ```
 curl -X POST \
   http://localhost:8080/laboratory-service/exams \
@@ -91,13 +97,13 @@ curl -X POST \
 }'
 ```
 
-#### Obter um exame existente:
+- Obter um exame existente:
 
 ```
 curl -X GET \
   http://localhost:8080/laboratory-service/exams/1
 ```
-#### Atualização de um exame existente:
+- Atualização de um exame existente:
 ```
 curl -X PUT \
   http://localhost:8080/laboratory-service/exams/1 \
@@ -108,31 +114,31 @@ curl -X PUT \
 }'
 ```
 
-#### Remover um exame existente:
+- Remover um exame existente:
 ```
 curl -X DELETE \
   http://localhost:8080/laboratory-service/exams/1
 ```
 
-## Operações de associação
+# Operações de associação
 
-#### Associar um exame a um laboratório:
+- Associar um exame a um laboratório:
 
 ```
 curl -X POST \
   http://localhost:8080/laboratory-service/laboratories/1/exams/1
 ```
 
-#### Desassociar um exame de um laboratório:
+- Desassociar um exame de um laboratório:
 
 ```
 curl -X DELETE \
   http://localhost:8080/laboratory-service/laboratories/1/exams/1
 ```
 
-## Operações em lote: Laboratório
+# Operações em lote: Laboratório
 
-#### Criação em lote de laboratórios
+- Criação em lote de laboratórios:
 
 ```
 curl -X POST \
@@ -158,7 +164,7 @@ curl -X POST \
 }]'
 ```
 
-#### Atualização em lote de laboratórios:
+- Atualização em lote de laboratórios:
 ```
 curl -X PUT \
   http://localhost:8080/laboratory-service/laboratories/bulk \
@@ -191,7 +197,7 @@ curl -X PUT \
 ]'
 ```
 
-#### Remoção em lote de laboratórios:
+- Remoção em lote de laboratórios:
 
 ```
 curl -X DELETE \
@@ -200,7 +206,7 @@ curl -X DELETE \
 
 ## Operações em lote: Exames
 
-#### Criação em lote de exames:
+- Criação em lote de exames:
 
 ```
 curl -X POST \
@@ -216,7 +222,7 @@ curl -X POST \
 }]'
 ```
 
-#### Atualização em lote de exames:
+- Atualização em lote de exames:
 
 ```
 curl -X PUT \
@@ -236,7 +242,7 @@ curl -X PUT \
 ]'
 ```
 
-#### Remoção em lote de laboratórios:
+- Remoção em lote de laboratórios:
 
 ```
 curl -X DELETE \
@@ -249,3 +255,12 @@ curl -X DELETE \
 laboratórios com os mesmos dados
 2) Validação de CEP
 3) Teste para cenários de exceção
+4) Uma remoção de associação deve ser tratada como física ou lógica?
+
+# Deploy
+
+```
+./gradlew clean build
+docker build -t laboratory .
+docker-compose up
+```
