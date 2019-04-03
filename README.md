@@ -21,11 +21,11 @@ Frameworks/libs utilizadas:
 
 - Os tipos de exames foram criados como String e estão salvos no banco de dados, visando uma maior flexibilidade.
 Para adicionar um novo tipo de exame, bastaria adicionar diretamente no banco de dados (má prática) ou através 
-de um CRUD específico pra essa tarefa.<br>
+de um CRUD específico para esta tarefa.<br>
 Isso permite que sejam adicionados novos tipos de exames de acordo com a demanda e sem a necessidade
 de um deploy para cada novo tipo, situação que aconteceria caso os tipos fossem mapeados como um ENUM.
 
-- Não é permitido cadastrar um novo exame com o mesmo nome
+- Não é permitido cadastrar um novo exame com o mesmo nome.
 
 - Os endpoints de operação em lote foram mapeados para rotas diferentes das inserções únicas.<br>
 Essa decisão foi tomada visando uma melhor organização da API, onde operações únicas sempre terão um
@@ -256,6 +256,8 @@ laboratórios com os mesmos dados
 2) Validação de CEP
 3) Teste para cenários de exceção
 4) Uma remoção de associação deve ser tratada como física ou lógica?
+5) Os dados devem ser salvas sempre em caixa alta?
+6) O nome dos exames devem ser salvos em caixa alta e sem acentuação? 
 
 # Deploy
 
